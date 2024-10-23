@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收录网站统计</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>已收录的网站</h1>
+        <ul class="link-list" id="linkList">
+            <li class="link-item">
+                <a href="http://mail.kbmfa.top/" class="link" data-name="KBmfa.top">KBmfa.top</a>
+                <span class="click-count">0</span>
+                <div class="progress-bar"></div>
+            </li>
+            <li class="link-item">
+                <a href="https://www.bilibili.com/" class="link" data-name="BiliBili">BiliBili</a>
+                <span class="click-count">0</span>
+                <div class="progress-bar"></div>
+            </li>
+            <!-- 可以继续添加更多链接 -->
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const linkList = document.getElementById('linkList');
+            const links = Array.from(linkList.querySelectorAll('.link')); // 获取所有链接
+
+            // 初始化点击次数数据，首先从 LocalStorage 读取
+            const clickCounts = {};
+            links.forEach(link => {
+                const name = link.dataset.name;
+                const countElement = link.nextElementSibling;
+                // 从 localStorage 中获取点击次数，如果没有则初始化为 0
+                const savedCount = localStorage.getItem(`clickCount_${name}`);
+                clickCounts[name] = { linkElement: link, countElement, count: savedCount ? parseInt(savedCount, 10) : 0 };
+                countElement.textContent = clickCounts[name].count; // 显示初始的点击次数
+            });
+
+            // 更新页面上的点击次数并排序列表
+            function updateAndSortLinks() {
+                // 转换为数组以便排序
+                const sortableLinks = Object.entries(clickCounts).map(([name, { linkElement, countElement, count }]) => ({
+                    name,
+                    linkElement,
+                    countElement,
+                    count
+                }));
+                // 按点击次数降序排序，若次数相同则按名称升序排序
+                sortableLinks.sort((a, b) => {
+                    if (a.count === b.count) {
+                        return a.name.localeCompare(b.name);
+                    }
+                    return b.count - a.count;
+                });
+                // 清空列表并重新添加排序后的链接项
+                linkList.innerHTML = '';
+                sortableLinks.forEach(({ name, linkElement, countElement, count }) => {
+                    countElement.textContent = count;
+                    linkList.appendChild(linkElement.parentNode);
+                });
+            }
+
+            // 设置点击事件监听器
+            links.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // 阻止默认跳转行为
+                    const name = link.dataset.name;
+                    clickCounts[name].count++; // 增加点击次数
+                    // 将更新后的点击次数存储到 LocalStorage
+                    localStorage.setItem(`clickCount_${name}`, clickCounts[name].count);
+                    updateAndSortLinks(); // 更新并排序列表
+                    window.open(link.href, '_blank'); // 在新标签页中打开链接
+                });
+            });
+        });
+    </script>
+
+    <div class="footer-info">
+        <div class="watermark">
+            ©2020-2024 KeCeng Team
+        </div>
+        <div class="contact-us">
+            <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=UnSCZmVswYfDhprylBWaBETB98tg6yRd&authKey=LqQtbCiJdme09XlJpRgwVNiDK9O%2B6%2BIcip78WS8xhgNfwV4Ihm1DCp3TgoqjLqCt&noverify=0&group_code=376610338" target="_blank">联系我们</a>
+        </div>
+    </div>
+</body>
+</html>

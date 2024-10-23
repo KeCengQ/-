@@ -1,0 +1,101 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #151B2D; /* 深蓝色背景 */
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto; /* 居中对齐并添加一些上下边距 */
+    padding: 20px;
+    background-color: #2A2E43; /* 深紫色矩形背景 */
+    color: #FFFFFF; /* 白色文本 */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* 隐藏超出容器的元素 */
+}
+
+.link-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+.link-item {
+    position: relative; /* 相对定位，以便进度条可以相对于它定位 */
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex; /* 使用flex布局 */
+    justify-content: space-between; /* 链接和点击次数两端对齐 */
+    align-items: center; /* 垂直居中对齐 */
+    border-radius: 5px;
+    transition: border-color 0.3s; /* 边框颜色变化的过渡效果 */
+    overflow: hidden; /* 隐藏超出链接项的元素 */
+}
+
+.link-item:hover {
+    border-color: #FFFFFF; /* 鼠标悬停时边框变为白色 */
+}
+
+.link {
+    text-decoration: none;
+    color: #FFFFFF; /* 链接文本颜色 */
+    font-size: 16px;
+    z-index: 2; /* 确保链接在进度条之上 */
+    position: relative; /* 相对定位 */
+    flex-grow: 1; /* 链接占据最大空间 */
+}
+
+.click-count {
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.progress-bar {
+    position: absolute; /* 绝对定位，相对于 .link-item */
+    left: 0;
+    bottom: 0;
+    width: 0%; /* 初始宽度为0 */
+    height: 2px; /* 设置进度条高度 */
+    background-color: #26e7ec; /* 进度条颜色 */
+    transition: width 2s; /* 平滑过渡效果 */
+    z-index: 1; /* 确保进度条在链接之下 */
+}
+
+.link-item:hover .progress-bar {
+    width: 100%; /* 鼠标悬停时，进度条宽度变为100% */
+}
+
+.watermark {
+    position: fixed;
+    bottom: 20px;
+    right: 200px;
+    font-size: 12px;
+    color: rgb(38, 231, 236); /* 半透明的黑色 */
+    text-align: right;
+    z-index: 9999; /* 确保水印显示在其他内容之上 */
+}
+
+.footer-info {
+    position: fixed;
+    bottom: 20px;
+    right: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 9999; /* 确保显示在其他内容之上 */
+}
+
+.contact-us {
+    margin-top: 5px; /* 与水印保持一定距离 */
+    font-size: 12px;
+    color: #ffffff; /* 或者选择其他与你的页面风格相符的颜色 */
+    text-decoration: none; /* 移除链接的下划线 */
+    opacity: 0.7; /* 半透明效果 */
+}
+
+.contact-us:hover {
+    opacity: 1; /* 鼠标悬停时增加透明度 */
+}
