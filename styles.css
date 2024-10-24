@@ -2,14 +2,14 @@ body, html {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #151B2D; /* 深蓝色背景 */
+    background-color: #0d0d0d; /* 背景 */
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto; /* 居中对齐并添加一些上下边距 */
     padding: 20px;
-    background-color: #2A2E43; /* 深紫色矩形背景 */
+    background-color: rgb(34 34 34 / 80%); /* 深紫色矩形背景 */
     color: #FFFFFF; /* 白色文本 */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -40,7 +40,7 @@ body, html {
 
 .link {
     text-decoration: none;
-    color: #FFFFFF; /* 链接文本颜色 */
+    color: #ffd700; /* 链接文本颜色 */
     font-size: 16px;
     z-index: 2; /* 确保链接在进度条之上 */
     position: relative; /* 相对定位 */
