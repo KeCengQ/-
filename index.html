@@ -3,89 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收录网站统计</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>网站统计</title>
+    <style>
+        /* 样式和进度条代码 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d; /* 深色背景 */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1e1e1e; /* 深色矩形背景 */
+            color: #FFD700; /* 黄色字体 */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFD700; /* 标题颜色 */
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .link-item {
+            position: relative;
+            margin-bottom: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .link {
+            text-decoration: none;
+            color: #ffd700; /* 链接颜色 */
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        a {
+        color: #FFD700; /* 链接颜色，例如金黄色 */
+        text-decoration: none; /* 去掉下划线 */
+        }
+
+        a:hover {
+        color: #FFD700; /* 悬停时颜色相同 */
+        text-decoration: underline; /* 悬停时显示下划线 */
+        }
+
+        a:visited {
+        color: #FFD700; /* 访问过后保持颜色一致 */
+        }
+
+        .footer-info {
+            position: fixed;
+            bottom: 20px;
+            right: 50px;
+            font-size: 12px;
+            color: #ffffff;
+            text-align: right;
+            z-index: 9999;
+        }
+
+        .contact-img {
+            position: fixed;
+            bottom: 20px; /* 距离底部 20px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 向左偏移 50% 实现居中 */
+            cursor: pointer;
+            z-index: 9999; /* 确保图片在最上层 */
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            visibility: hidden; /* 初始隐藏 */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+            opacity: 0; /* 初始透明 */
+            transition: opacity 0.5s ease, visibility 0s linear 0.5s; /* 淡入淡出效果 */
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            color: #FFD700;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            transform: scale(0.5); /* 初始缩小 */
+            transition: transform 0.5s ease, opacity 0.5s ease; /* 缩放和透明度过渡效果 */
+            opacity: 0;
+        }
+
+        .modal.show {
+            visibility: visible;
+            opacity: 1; /* 显示时不透明 */
+            transition: opacity 0.5s ease, visibility 0s linear; /* 移除visibility的延迟 */
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1); /* 缩放到正常大小 */
+            opacity: 1; /* 显示内容 */
+        }
+
+        .close {
+            color: #FFD700;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>已收录的网站</h1>
+        <h1>KeCeng.Top</h1>
         <ul class="link-list" id="linkList">
             <li class="link-item">
-                <a href="http://mail.kbmfa.top/" class="link" data-name="KBmfa.top">KBmfa.top</a>
-                <span class="click-count">0</span>
-                <div class="progress-bar"></div>
+                <div>
+                    <a href="https://www.minecraft.net/" class="link" data-name="minecraft.net">Minecraft.net</a>
+                </div>
             </li>
             <li class="link-item">
-                <a href="https://www.bilibili.com/" class="link" data-name="BiliBili">BiliBili</a>
-                <span class="click-count">0</span>
-                <div class="progress-bar"></div>
+                <div>
+                    <a href="https://www.mcmod.cn/" class="link" data-name="mcmod.cn">Mcmod.cn</a>
+                </div>
             </li>
-            <!-- 可以继续添加更多链接 -->
+            <li class="link-item">
+                <div>
+                    <a href="https://zh.minecraft.wiki/w/Minecraft_Wiki" class="link" data-name="Minecraft_Wiki">Minecraft_Wiki</a>
+                </div>
+            </li>
         </ul>
+    </div>
+
+    <div class="footer-info">
+        ©2020-2024 KeCeng Team
+    </div>
+
+    <!-- 联系我们图片 -->
+    <img src="https://www.unisuccess.net/Uploads/image/20200814/20200814182221_75558.jpg" alt="联系我们" class="contact-img" id="contactImg" style="width: 120px; height: auto;">
+
+    <!-- 弹窗 -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <p>QQ群: <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=2EaqyIyBugyQ4GQlziUZsbXVCiUk9EMv&authKey=7npHXj%2FfLvVg%2Br70YBK%2B8a6DhAU69NUWzHTn5L5zEqoxkWILpt6cgwNwJo7cLBGH&noverify=0&group_code=376610338" target="_blank">点击加入QQ群</a></p>
+            <p>Telegram: 暂无</p>
+            <p>Discord: 暂无</p>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const linkList = document.getElementById('linkList');
-            const links = Array.from(linkList.querySelectorAll('.link')); // 获取所有链接
-
-            // 初始化点击次数数据，首先从 LocalStorage 读取
-            const clickCounts = {};
-            links.forEach(link => {
-                const name = link.dataset.name;
-                const countElement = link.nextElementSibling;
-                // 从 localStorage 中获取点击次数，如果没有则初始化为 0
-                const savedCount = localStorage.getItem(`clickCount_${name}`);
-                clickCounts[name] = { linkElement: link, countElement, count: savedCount ? parseInt(savedCount, 10) : 0 };
-                countElement.textContent = clickCounts[name].count; // 显示初始的点击次数
-            });
-
-            // 更新页面上的点击次数并排序列表
-            function updateAndSortLinks() {
-                // 转换为数组以便排序
-                const sortableLinks = Object.entries(clickCounts).map(([name, { linkElement, countElement, count }]) => ({
-                    name,
-                    linkElement,
-                    countElement,
-                    count
-                }));
-                // 按点击次数降序排序，若次数相同则按名称升序排序
-                sortableLinks.sort((a, b) => {
-                    if (a.count === b.count) {
-                        return a.name.localeCompare(b.name);
-                    }
-                    return b.count - a.count;
-                });
-                // 清空列表并重新添加排序后的链接项
-                linkList.innerHTML = '';
-                sortableLinks.forEach(({ name, linkElement, countElement, count }) => {
-                    countElement.textContent = count;
-                    linkList.appendChild(linkElement.parentNode);
-                });
-            }
+            const links = Array.from(document.querySelectorAll('.link-item'));
 
             // 设置点击事件监听器
             links.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // 阻止默认跳转行为
-                    const name = link.dataset.name;
-                    clickCounts[name].count++; // 增加点击次数
-                    // 将更新后的点击次数存储到 LocalStorage
-                    localStorage.setItem(`clickCount_${name}`, clickCounts[name].count);
-                    updateAndSortLinks(); // 更新并排序列表
-                    window.open(link.href, '_blank'); // 在新标签页中打开链接asdada
+                link.querySelector('.link').addEventListener('click', function(event) {
+                    event.preventDefault(); // 阻止链接跳转
+                    window.open(event.target.href, '_blank'); // 打开链接
                 });
+            });
+
+            // 弹窗功能
+            const contactImg = document.getElementById('contactImg');
+            const modal = document.getElementById('contactModal');
+            const closeModal = document.getElementById('closeModal');
+
+            contactImg.addEventListener('click', function() {
+                modal.classList.add('show');
+            });
+
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('show');
+            });
+
+            // 点击窗口外关闭弹窗
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.classList.remove('show');
+                }
             });
         });
     </script>
-
-    <div class="footer-info">
-        <div class="watermark">
-            ©2020-2024 KeCeng Team
-        </div>
-        <div class="contact-us">
-            <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=UnSCZmVswYfDhprylBWaBETB98tg6yRd&authKey=LqQtbCiJdme09XlJpRgwVNiDK9O%2B6%2BIcip78WS8xhgNfwV4Ihm1DCp3TgoqjLqCt&noverify=0&group_code=376610338" target="_blank">联系我们</a>
-        </div>
-    </div>
 </body>
 </html>
